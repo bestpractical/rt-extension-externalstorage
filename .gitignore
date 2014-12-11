@@ -1,0 +1,10 @@
+/Makefile
+/Makefile.old
+/pm_to_blib
+/blib
+/MYMETA.*
+/sbin/extract-attachments
+/lib/RT/Extension/ExternalStorage/Test.pm
+/t/tmp/
+/MANIFEST.bak
+/RT-Extension-ExternalStorage-*.tar.gz
