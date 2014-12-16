@@ -115,6 +115,7 @@ for my $class (qw/RT::Attachments RT::ObjectCustomFieldValues/) {
                 FIELD => "Type",
                 VALUE => "Binary",
             );
+            $attach->{'find_expired_rows'} = 1;
         }
 
         $attach->RowsPerPage(100);
