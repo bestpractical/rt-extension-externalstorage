@@ -1,3 +1,7 @@
+0.51 2014-12-18
+ - Export old file upload CFs, as well as current values
+ - Add no_index for core RT packages
+
 0.50 2014-12-10
  - Initial release
 

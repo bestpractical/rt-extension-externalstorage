@@ -4,7 +4,7 @@ use strict;
 
 package RT::Extension::ExternalStorage;
 
-our $VERSION = '0.50';
+our $VERSION = '0.51';
 
 use Digest::SHA qw//;
 
