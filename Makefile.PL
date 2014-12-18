@@ -10,6 +10,8 @@ requires_rt '4.0.22';
 recommends 'Amazon::S3';
 recommends 'File::Dropbox';
 
+no_index( package => 'RT::Record', 'RT::ObjectCustomFieldValue', 'RT::Attachment');
+
 auto_install;
 
 my ($lib_path) = $INC{'RT.pm'} =~ /^(.*)[\\\/]/;

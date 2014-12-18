@@ -18,6 +18,10 @@ no_index:
   directory:
     - inc
     - t
+  package:
+    - RT::Record
+    - RT::ObjectCustomFieldValue
+    - RT::Attachment
 recommends:
   Amazon::S3: 0
   File::Dropbox: 0
