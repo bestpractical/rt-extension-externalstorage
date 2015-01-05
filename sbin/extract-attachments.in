@@ -110,11 +110,12 @@ for my $class (qw/RT::Attachments RT::ObjectCustomFieldValues/) {
                 TABLE2 => 'CustomFields',
                 FIELD2 => 'id',
             );
+            # TODO: use IN operator once we increase required RT version to 4.2
             $attach->Limit(
                 ALIAS => $cfs,
                 FIELD => "Type",
-                VALUE => "Binary",
-            );
+                VALUE => $_,
+            ) for qw(Binary Image);
             $attach->{'find_expired_rows'} = 1;
         }
 

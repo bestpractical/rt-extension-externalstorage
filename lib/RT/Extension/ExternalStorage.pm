@@ -165,7 +165,15 @@ package RT::ObjectCustomFieldValue;
 
 sub StoreExternally {
     my $self = shift;
-    return 1 if $self->CustomFieldObj->Type eq "Binary";
+    my $type = $self->CustomFieldObj->Type;
+
+    return 1 if $type eq "Binary";
+
+    if ($type eq "Image") {
+        my $length = length($self->LargeContent || '');
+        return 1 if $length > 10 * 1024 * 1024;
+    }
+
     return 0;
 }
 
