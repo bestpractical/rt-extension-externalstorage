@@ -179,9 +179,11 @@ sub StoreExternally {
     } elsif ($type =~ m{^(text|message)/}) {
         # If textual, we only store externally if it's _large_ (> 10M)
         return 1 if $self->ContentLength > 10 * 1024 * 1024;
+        return 0;
     } elsif ($type =~ m{^image/}) {
         # Ditto images, which may be displayed inline
         return 1 if $self->ContentLength > 10 * 1024 * 1024;
+        return 0;
     } else {
         return 1;
     }
