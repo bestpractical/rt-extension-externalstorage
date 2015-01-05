@@ -1,3 +1,8 @@
+0.55 2015-01-05
+ - Update copyright year
+ - Add explicit "return 0"s for non-external attachment storage
+ - Store large (>10M) CFs of type Image externally, as well
+
 0.51 2014-12-18
  - Export old file upload CFs, as well as current values
  - Add no_index for core RT packages
