@@ -52,7 +52,7 @@ use strict;
 
 package RT::Extension::ExternalStorage;
 
-our $VERSION = '0.55';
+our $VERSION = '0.60';
 
 use Digest::SHA qw//;
 
