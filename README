@@ -16,7 +16,8 @@ DESCRIPTION
     be on local disk, or to a cloud storage solution. This decreases the
     size of RT's database, in turn decreasing the burden of backing up RT's
     database, at the cost of adding additional locations which must be
-    configured or backed up.
+    configured or backed up. Attachment storage paths are calculated based
+    on file contents; this provides de-duplication.
 
     The files are initially stored in the database when RT receives them;
     this guarantees that the user does not need to wait for the file to be
@@ -72,6 +73,11 @@ CONFIGURATION
     RT::Extension::ExternalStorage::Disk
     RT::Extension::ExternalStorage::Dropbox
     RT::Extension::ExternalStorage::AmazonS3
+
+CAVEATS
+    This extension is not currently compatibile with RT's shredder tool;
+    attachments which are shredded will not be removed from external
+    storage.
 
 AUTHOR
     Best Practical Solutions, LLC <modules@bestpractical.com>

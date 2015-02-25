@@ -1,3 +1,7 @@
+0.61 2015-02-25
+ - Documentation additions; note that content is de-duplicated, and that
+   shredder will not reclaim space
+
 0.60 2015-01-20
  - Never store 0-length attachments of OCFVs externally
 
