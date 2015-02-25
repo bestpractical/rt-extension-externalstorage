@@ -155,6 +155,12 @@ documentation in each for necessary configuration details:
 
 =back
 
+=head1 CAVEATS
+
+This extension is not currently compatibile with RT's C<shredder> tool;
+attachments which are shredded will not be removed from external
+storage.
+
 =cut
 
 our $BACKEND;
