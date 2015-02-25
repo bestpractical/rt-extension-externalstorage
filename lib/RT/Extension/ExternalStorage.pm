@@ -79,7 +79,8 @@ textual content and images) to outside of the database.  This may either
 be on local disk, or to a cloud storage solution.  This decreases the
 size of RT's database, in turn decreasing the burden of backing up RT's
 database, at the cost of adding additional locations which must be
-configured or backed up.
+configured or backed up.  Attachment storage paths are calculated based
+on file contents; this provides de-duplication.
 
 The files are initially stored in the database when RT receives them;
 this guarantees that the user does not need to wait for the file to be
