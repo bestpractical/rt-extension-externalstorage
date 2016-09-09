@@ -180,10 +180,9 @@ sub Store {
     my $class = shift;
     my $content = shift;
 
-    my $key = Digest::SHA::sha256_hex( $content );
-    my ($ok, $msg) = $BACKEND->Store( $key => $content );
-    return ($ok, $msg) unless defined $ok;
-
+    my $sha = Digest::SHA::sha256_hex( $content );
+    my ($key, $msg) = $BACKEND->Store( $sha => $content );
+    return ($key, $msg) unless defined $key;
     return ($key);
 }
 
@@ -198,6 +197,9 @@ my $__DecodeLOB = __PACKAGE__->can('_DecodeLOB');
     my $ContentEncoding = shift || 'none';
     my $Content         = shift;
     my $Filename        = @_;
+
+
+    RT->Logger->info("determinging what to do with $Filename, $ContentEncoding");
 
     return $__DecodeLOB->($self, $ContentType, $ContentEncoding, $Content, $Filename)
         unless $ContentEncoding eq "external";

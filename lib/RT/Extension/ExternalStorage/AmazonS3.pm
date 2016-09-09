@@ -115,13 +115,13 @@ sub Store {
     my ($sha, $content) = @_;
 
     # No-op if the path exists already
-    return (1) if $S3->bucket($self->{Bucket})->head_key( $sha );
+    return ($sha) if $S3->bucket($self->{Bucket})->head_key( $sha );
 
     $S3->bucket($self->{Bucket})->add_key(
         $sha => $content
     ) or return (undef, "Failed to write to AmazonS3: " . $S3->errstr);
 
-    return (1);
+    return ($sha);
 }
 
 =head1 NAME
