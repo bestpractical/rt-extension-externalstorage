@@ -97,7 +97,7 @@ sub Store {
     my ($sha, $content) = @_;
 
     # No-op if the path exists already.  This forces a metadata read.
-    return (1) if open( $DROPBOX, "<", $sha);
+    return ($sha) if open( $DROPBOX, "<", $sha);
 
     open( $DROPBOX, ">", $sha )
         or return (undef, "Open for write on dropbox failed: $!");
@@ -106,7 +106,7 @@ sub Store {
     close $DROPBOX
         or return (undef, "Flush to dropbox failed: $!");
 
-    return (1);
+    return ($sha);
 }
 
 =head1 NAME
