@@ -1,0 +1,85 @@
+*** Draft of Box.com External Storage Documentation ***
+
+0.) Install storage-box and rt-extension-externalstorage
+
+1.) Signup for an account at box.
+
+2.) Login to developer.box.com or https://app.box.com/developers/services
+
+3.) click Get Started if this is your first application
+
+4.) create a unique name for your app, for example rt-myorganization
+
+OAuth2 Parameters:
+	
+5.) copy client_id and client_secret somewhere safe for later use
+
+6.) Add a redirect uri, it must be https, but need not exist.  We won't be using it anyways.
+
+7.) under "Authentication Type" select "Server Authentication (OAuth2.0 with JWT)"
+
+8.) under Scopes, Enterprise select:
+	
+	* Manage app users
+
+9.) Before you can enable Public Key Managment, under Settings >>  Security >> 
+
+	* select "Login verification: Require 2-step verification for unrecognized logins"
+
+10.) Go back to your app and under Public Key Management
+
+	* Select "Add Public Key"
+
+11.) Using openssl, generate a public / private key pair in pem format by either:
+
+	 perl -Ilib -MStorage::Box::Auth -e 'Storage::Box::Auth->new->generate_keys("your_key_password_here")' 
+
+Or use openssl to generate a private rsa aes256 key of 2048 bytes long:
+
+	openssl genrsa -aes256 -out private_key.pem 2048
+
+and the corresponding public:
+
+	openssl rsa -pubout -in private_key.pem -out public_key.pem
+
+Save your password where you put the client_id and client_secret!
+
+12.) Copy and paste your public key into the "Public Key" box and click "Verify" and then "Save", you may have to enter your F2A credentials again after this.
+
+13.) Copy the Key ID next to Public Key 1 to the same safe place you are keeping your other secrets.
+
+14.) At the bottom of the page click "Save Applications"
+
+15.) create a directory for you private and public key in the rt4 install directory such as:
+
+	mkdir -p /opt/rt4/etc/keys
+	mv *.pem /opt/rt4/etc/keys/
+
+16.) Under Settings >> Business Settings find the field "Enterprise ID" and copy that to your list of secrets.
+
+17.) Edit your RT_SiteConfig.pm file to enable the "Box" backend using the values you've saved in a safe place:
+
+	Plugin('RT::Extension::ExternalStorage');
+
+	Set(%ExternalStorage,
+		Type => 'Box',
+		KeyId => "KEY ID FROM STEP 13",
+		EnterpriseId =>  'ENTERPRISE ID FROM STEP 16',
+		PrivateKey => "/opt/rt4/etc/keys/private_key.pem",
+		Password => "PASSWORD FROM STEP 11",
+		ClientId =>  "CLIENT ID FROM STEP 5",
+		ClientSecret => "CLIENT SECRET FROM STEP 5");
+
+18.) Trial run
+
+Assuming your private key is installed and readable by your webserver process you should now have the integration working.  Running:
+
+	/opt/rt4/local/plugins/RT-Extension-ExternalStorage/sbin/extract-attachments
+
+by hand should copy the large files out of the current database and migrate them to Box.com.  
+
+19.) Add that script to a cron job such as:
+
+	 0 0 * * * root /opt/rt4/local/plugins/RT-Extension-ExternalStorage/sbin/extract-attachments
+
+	
