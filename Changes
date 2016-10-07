@@ -1,3 +1,6 @@
+0.62 2016-10-07
+ - Store backend-specific keys in the attachment
+
 0.61 2015-02-25
  - Documentation additions; note that content is de-duplicated, and that
    shredder will not reclaim space
